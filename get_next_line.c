@@ -6,34 +6,56 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:10:55 by htrindad          #+#    #+#             */
-/*   Updated: 2024/05/22 18:37:06 by htrindad         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:49:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*get_str(int fd)
+static void	ft_append(t_list **lst, char *buf)
 {
-	char	*s[BUFFER_SIZE + 1];
-	char	*ret;
-	int		b_read;
-	
-	b_read = read(fd, s, BUFFER_SIZE);
-	if (b_read < 0)
-		return (NULL);
-	while (b_read)
+	t_list	*n;
+	t_list	*last_n;
+
+	last_n = ft_fln(*lst);
+	n = malloc(sizeof(t_list));
+	if (!n)
+		return ;
+	if (!last_n)
+		*lst = n;
+	else
+		last_n->next = n;
+	n->content = buf;
+	n->next = NULL;
+}
+
+// cl stands for "create list"
+static void	ft_cl(t_list **lst, int fd)
+{
+	int		c_read;
+	char	*buff;
+
+	while (!ft_found_new_line(lst))
 	{
-		b_read = read(fd, s, BUFFER_SIZE);
-		if (b_read < 0)
-			return (NULL);
+		buff = malloc(BUFFER_SIZE + 1);
+		if (buff == NULL)
+			return ;
+		c_read = read(fd, buff, BUFFER_SIZE);
+		if (!c_read)
+		{
+			free(buff);
+			return ;
+		}
+		buff[c_read] = 0;
+
 	}
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static t_list	*lst = NULL;
+	char			*nl;
 
-	if (fd < 1 || BUFFER_SIZE < 1 || read(fd, 0, 0))
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (NULL);
-	str = get_str(fd);
 }
