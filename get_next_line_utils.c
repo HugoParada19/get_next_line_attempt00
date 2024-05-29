@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:27 by htrindad          #+#    #+#             */
-/*   Updated: 2024/05/28 14:44:14 by htrindad         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:40:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,54 @@ t_list	*ft_fln(t_list *lst)
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
+}
+
+// nl stands for "new line"
+int	ft_len_to_nl(t_list *lst)
+{
+	int	i;
+	int	len;
+
+	if (lst == NULL)
+		return (lst);
+	len = 0;
+	while (lst)
+	{
+		i = 0;
+		while (lst->content[i])
+		{
+			if (lst->content[i] == '\n')
+				return (++len);
+			i++;
+			len++;
+		}
+		lst = lst->next;
+	}
+	return (len);
+}
+
+void	ft_copy_buff(t_list *lst, char *buff)
+{
+	int	i;
+	int	j;
+
+	if (lst == NULL)
+		return (lst);
+	j = 0;
+	while (lst)
+	{
+		i = 0;
+		while (lst->content[i])
+		{
+			if (lst->content[i] == '\n')
+			{
+				buff[j++] = '\n';
+				buff[j] = 0;
+				return ;
+			}
+			buff[j++] = lst->content[i++];
+		}
+		lst = lst->next;
+	}
+	buff[j] = 0;
 }

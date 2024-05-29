@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:10:55 by htrindad          #+#    #+#             */
-/*   Updated: 2024/05/28 14:49:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:24:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,16 @@ static void	ft_cl(t_list **lst, int fd)
 			return ;
 		}
 		buff[c_read] = 0;
-
+		ft_append(lst, buff);
 	}
+}
+
+static char	*ft_get_line(t_list *lst)
+{
+	int		strlen;
+	char	*n_str;
+	if (lst == NULL)
+		return (lst);
 }
 
 char	*get_next_line(int fd)
