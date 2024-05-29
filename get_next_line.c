@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:10:55 by htrindad          #+#    #+#             */
-/*   Updated: 2024/05/29 13:24:23 by htrindad         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:51:49 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ static char	*ft_get_line(t_list *lst)
 	char	*n_str;
 	if (lst == NULL)
 		return (lst);
+	strlen = ft_len_to_nl(lst);
+	n_str = malloc(strlen + 1);
+	if (n_str == NULL)
+		return (NULL);
+	ft_copy_buff(lst, n_str);
+	return (n_str);
 }
 
 char	*get_next_line(int fd)
@@ -66,4 +72,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (NULL);
+	ft_cl(&lst, fd);
+	
 }
